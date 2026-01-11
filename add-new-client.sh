@@ -18,6 +18,10 @@ echo ""
 
 echo "Which interface do you want to add a new client to? "
 read vpn_interface_name
+if [[ -z $vpn_interface_name ]]; then
+    echo "Error: VPN interface is required"
+    exit 1
+fi 
 
 config_path="/etc/wireguard/${vpn_interface_name}.conf"
 

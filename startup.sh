@@ -12,6 +12,11 @@ for cmd in wg ip iptables; do
     fi
 done
 
+if [[ ! -d /etc/wireguard/ ]]; then
+    mkdir /etc/wireguard/
+    echo "Created wireguard dir in /etc/"
+fi
+
 echo ""
 echo "[1] Configure new server"
 echo "[2] Configure new client"
