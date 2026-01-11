@@ -5,13 +5,12 @@ default_ip="10.0.0.1/24"
 default_port="51820"
 
 
-clear
 echo "#############################################"
-echo "#     Assistente de Criação VPN - Server    #"
+echo "#     VPN Creation Assistant - Server       #"
 echo "#############################################"
 echo ""
 
-echo "Defina um nome para a interface de rede: "
+echo "Enter a name for the network interface: "
 read vpn_interface_name
 echo ""
 
@@ -22,10 +21,10 @@ source ./key-gen.sh "${vpn_interface_name}"
 cd /etc/wireguard/; touch ${vpn_interface_name}.conf
 
 echo ""
-read -p "$(echo -e "Endereço IP Virtual (CIDR) [${default_ip}]: ")" vpn_server_ip
+read -p "$(echo -e "Virtual IP Address [${default_ip}]: ")" vpn_server_ip
 vpn_server_ip=${vpn_server_ip:-$default_ip}
 
-read -p "$(echo -e "Porta de escuta [${default_port}]: ")" vpn_server_port
+read -p "$(echo -e "Listening Port [${default_port}]: ")" vpn_server_port
 vpn_server_port=${vpn_server_port:-$default_port}
 
 config_path="/etc/wireguard/${vpn_interface_name}.conf"
@@ -44,7 +43,7 @@ EOF
 chmod 600 "$config_path"
 
 echo ""
-echo "Configuração criada com sucesso!"
+echo "Configuration created successfully!"
 echo "----------------------------------------------------"
 cat "$config_path"
 echo "----------------------------------------------------"

@@ -15,5 +15,5 @@ chmod 644 "$key_dir/publickey"
 private_key=$(cat "$key_dir/privatekey")
 public_key=$(cat "$key_dir/publickey")
 
-echo "Public Key gerada:"
+echo "Public Key generated:"
 cat "$key_dir/publickey"

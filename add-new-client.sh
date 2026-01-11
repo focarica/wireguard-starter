@@ -1,44 +1,44 @@
 #!/bin/bash
 
-echo "#############################################"
-echo "#     Assistente de Criação VPN - Server    #"
-echo "#          Adicionando um novo peer         #"
-echo "#############################################"
+echo "##############################################"
+echo "#     VPN Creation Assistant - Server        #"
+echo "#         Adding a new client                #"
+echo "##############################################"
 echo ""
 
 # Mostra todos .conf criados
-echo "Configurações encontradas em /etc/wireguard/:"
+echo "Configurations found in /etc/wireguard/:"
 if ls /etc/wireguard/*.conf 1> /dev/null 2>&1; then
     ls /etc/wireguard/*.conf | xargs -n 1 basename -s .conf | sed 's/^/ - /'
 else
-    echo " Nenhuma configuração encontrada."
+    echo "No configurations found."
     exit 1
 fi
 echo ""
 
-echo "Para qual interface deseja adicionar um novo cliente? "
+echo "Which interface do you want to add a new client to? "
 read vpn_interface_name
 
 config_path="/etc/wireguard/${vpn_interface_name}.conf"
 
 if [[ ! -f "$config_path" ]]; then
     echo ""
-    echo "ERRO CRÍTICO: O arquivo de configuração '$config_path' não existe."
-    echo "Verifique o nome da interface e tente novamente."
+    echo "Error: The configuration file '$config_path' does not exist."
+    echo "Check the interface name and try again."
     exit 1
 fi
 
-echo "Chave PUBLICA do cliente: "
+echo "Client PUBLIC key: "
 read public_key_peer
 if [[ -z "$public_key_peer" ]]; then
-    echo "Erro: A chave pública é obrigatória."
+    echo "Error: Public key is required."
     exit 1
 fi
 
-echo "IPs permitidos (AllowedIPs) ex: 10.0.0.2/32: "
+echo "Allowed IPs (AllowedIPs) ex: 10.0.0.2/32: "
 read allowed_ips
 if [[ -z "$allowed_ips" ]]; then
-    echo "Erro: O IP permitido é obrigatório."
+    echo "Error: Allowed IP is required."
     exit 1
 fi
 
@@ -50,7 +50,7 @@ AllowedIPs = ${allowed_ips}
 EOF
 
 echo ""
-echo "Novo cliente adicionado com sucesso!"
+echo "New client added successfully!"
 echo "----------------------------------------------------"
-cat "$config_path"
+tail -n 5 "$config_path"
 echo "----------------------------------------------------"
