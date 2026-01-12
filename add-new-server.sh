@@ -41,7 +41,7 @@ if [[ -z "$public_key_peer" ]]; then
     exit 1
 fi
 
-echo "Server endpoint: "
+echo "Server endpoint and port. ex: 192.168.0.1:200 : "
 read server_endpoint
 if [[ -z "$server_endpoint" ]]; then
     echo "Error: Server endpoint is required."
@@ -49,7 +49,9 @@ if [[ -z "$server_endpoint" ]]; then
 fi
 
 read -p "$(echo -e "AllowedIPs: [$default_allowed_ips]: ")" allowed_ips 
-allowed_ips=${allowed_ips:-default_allowed_ips}
+allowed_ips=${allowed_ips:-$default_allowed_ips}
+
+echo $allowed_ips
 
 echo "" >> "${config_path}"
 cat << EOF >> ${config_path}
