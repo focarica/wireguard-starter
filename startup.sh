@@ -2,18 +2,18 @@
 
 if [[ $EUID -ne 0 ]]; then
   echo "This script must be executed as root!"
-  exit
+  exit 1
 fi
 
 for cmd in wg ip iptables; do
     if ! command -v $cmd &> /dev/null; then
         echo "The command '$cmd' was not found. Install WireGuard/iptables."
-        exit
+        exit 1
     fi
 done
 
 if [[ ! -d /etc/wireguard/ ]]; then
-    mkdir /etc/wireguard/
+    mkdir -p /etc/wireguard/
     echo "Created wireguard dir in /etc/"
 fi
 
@@ -22,20 +22,15 @@ echo "[1] Configure new server"
 echo "[2] Configure new client"
 echo "[3] Add new client on the server"
 echo "[4] Add new server on the client"
-read user_select
+read -p "Select option [1-4]: " user_select
+while ! [[ "$user_select" =~ ^[1-4]$ ]]; do
+  echo "Invalid selection. Choose 1, 2, 3 or 4."
+  read -p "Select option [1-4]: " user_select
+done
 
-if [[ $user_select == 1 ]]; then
-	source ./create-server.sh
-fi
-
-if [[ $user_select == 2 ]]; then
-  source ./create-client.sh
-fi
-
-if [[ $user_select == 3 ]]; then
-	source ./add-new-client.sh
-fi
-
-if [[ $user_select == 4 ]]; then
-	source ./add-new-server.sh
-fi
+case "$user_select" in
+  1) source ./create-server.sh ;;
+  2) source ./create-client.sh ;;
+  3) source ./add-new-client.sh ;;
+  4) source ./add-new-server.sh ;;
+esac
