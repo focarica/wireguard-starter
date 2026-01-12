@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 default_allowed_ips="0.0.0.0/0"
 
