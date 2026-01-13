@@ -70,22 +70,4 @@ All WireGuard configurations are created under:
 
     Do NOT commit generated keys or /etc/wireguard content to Git.
 
-### Roadmap / Future Improvements
-
-Some ideas for future evolution:
-
-    Validation to prevent duplicate peers and IP conflicts
-
-    Idempotent configuration updates
-
-    Dry-run mode
-
-    Backup and rollback support
-
-    Improved input validation
-
-    Logging and error handling
-
-    Automated testing
-
-    Support for IPv6 and multiple interfaces
+[Future Improvements](https://github.com/focarica/wireguard-starter/issues)
