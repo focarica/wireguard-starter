@@ -28,6 +28,8 @@ while ! [[ "$user_select" =~ ^[1-4]$ ]]; do
   read -p "Select option [1-4]: " user_select
 done
 
+cd lib/
+
 case "$user_select" in
   1) source ./create-server.sh ;;
   2) source ./create-client.sh ;;
